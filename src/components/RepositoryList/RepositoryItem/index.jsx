@@ -1,49 +1,25 @@
-import { View, StyleSheet } from "react-native";
+import { useParams } from "react-router-native";
 
-import RepositoryItemHeader from "./RepositoryItemHeader";
-import RepositoryItemRating from "./RepositoryItemRating";
+import Loading from "../../Loading";
+import Error from "../../Error";
+import RepositoryItemContainer from "./RepositoryItemContainer";
 
-import theme from "../../../theme";
+import useRepository from "../../../hooks/useRepository";
 
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: theme.colors.backgroundSecondary,
-    padding: 15,
-  },
-});
+const RepositoryItem = () => {
+  const { id } = useParams();
 
-const RepositoryItem = ({ repository }) => {
-  const {
-    fullName,
-    description,
-    ownerAvatarUrl,
-    language,
-    forksCount,
-    stargazersCount,
-    ratingAverage,
-    reviewCount,
-  } = repository;
+  const { repository, loading, error } = useRepository({ id });
 
-  const repositoryItemHeaderProps = {
-    fullName,
-    description,
-    ownerAvatarUrl,
-    language,
-  };
+  if (loading || !repository) {
+    return <Loading />;
+  }
 
-  const repositoryItemRatingProps = {
-    forksCount,
-    stargazersCount,
-    ratingAverage,
-    reviewCount,
-  };
+  if (error) {
+    return <Error error={error} />;
+  }
 
-  return (
-    <View testID='repositoryItem' style={styles.container}>
-      <RepositoryItemHeader {...repositoryItemHeaderProps} />
-      <RepositoryItemRating {...repositoryItemRatingProps} />
-    </View>
-  );
+  return <RepositoryItemContainer repository={repository} />;
 };
 
 export default RepositoryItem;
