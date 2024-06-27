@@ -1,10 +1,20 @@
+import { FlatList, StyleSheet } from "react-native";
+
 import { useParams } from "react-router-native";
 
 import Loading from "../../Loading";
 import Error from "../../Error";
 import RepositoryItemContainer from "./RepositoryItemContainer";
+import ItemSeparator from "../../ItemSeparator";
+import ReviewItem from "../../ReviewItem";
 
 import useRepository from "../../../hooks/useRepository";
+
+const styles = StyleSheet.create({
+  listHeader: {
+    marginBottom: 10,
+  },
+});
 
 const RepositoryItem = () => {
   const { id } = useParams();
@@ -19,7 +29,18 @@ const RepositoryItem = () => {
     return <Error error={error} />;
   }
 
-  return <RepositoryItemContainer repository={repository} />;
+  return (
+    <FlatList
+      data={repository.reviews.edges}
+      renderItem={({ item }) => <ReviewItem review={item.node} />}
+      keyExtractor={({ node }) => node.id}
+      ListHeaderComponent={() => (
+        <RepositoryItemContainer repository={repository} />
+      )}
+      ItemSeparatorComponent={ItemSeparator}
+      ListHeaderComponentStyle={styles.listHeader}
+    />
+  );
 };
 
 export default RepositoryItem;
