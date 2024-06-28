@@ -9,6 +9,7 @@ import RepositoryItem from "./RepositoryList/RepositoryItem";
 import AppBar from "./AppBar";
 import SignIn from "./SignIn";
 import SignOut from "./SignOut";
+import CreateReview from "./CreateReview";
 
 import theme from "../theme";
 
@@ -30,6 +31,7 @@ const Main = () => {
         <Route path='/signin' element={<SignIn />} />
         <Route path='/signout' element={<SignOut />} />
         <Route path='/repository/:id' element={<RepositoryItem />} />
+        <Route path='/create-review' element={<CreateReview />} />
         <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
     </View>
