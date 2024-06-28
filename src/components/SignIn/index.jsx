@@ -1,9 +1,10 @@
 import Loading from "../Loading";
-import SignInContainer from "./SignInContainer";
+import FormContainer from "../FormContainer";
 
 import * as yup from "yup";
 
 import useSignIn from "../../hooks/useSignIn";
+import SignInForm from "./SignInForm";
 
 const validationSchema = yup.object().shape({
   username: yup.string().required("Username is required"),
@@ -36,11 +37,13 @@ const SignIn = () => {
   }
 
   return (
-    <SignInContainer
+    <FormContainer
       initialValues={initialValues}
       onSubmit={onSubmit}
       validationSchema={validationSchema}
-    />
+    >
+      {({ onSubmit }) => <SignInForm onSubmit={onSubmit} />}
+    </FormContainer>
   );
 };
 
