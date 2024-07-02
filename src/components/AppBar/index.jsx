@@ -32,11 +32,9 @@ const AppBar = () => {
       <ScrollView horizontal contentContainerStyle={styles.scrollView}>
         <AppBarTab tabName='Repositories' path='/' />
         {me && <AppBarTab tabName='Create a review' path='/create-review' />}
-        {me ? (
-          <AppBarTab tabName='Sign out' path='/signout' />
-        ) : (
-          <AppBarTab tabName='Sign in' path='/signin' />
-        )}
+        {me && <AppBarTab tabName='Sign out' path='/signout' />}
+        {!me && <AppBarTab tabName='Sign in' path='/signin' />}
+        {!me && <AppBarTab tabName='Sign up' path='/signup' />}
       </ScrollView>
     </View>
   );
