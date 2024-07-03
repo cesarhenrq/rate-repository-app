@@ -1,30 +1,34 @@
-import { FlatList, Pressable } from "react-native";
+import React from "react";
 
-import { useNavigate } from "react-router-native";
+import { FlatList } from "react-native";
 
 import RepositoryItemContainer from "./RepositoryItem/RepositoryItemContainer";
+import RepositoryListHeader from "./RepositoryListHeader";
 import ItemSeparator from "../ItemSeparator";
-import OrderPicker from "../OrderPicker";
 
-const RepositoryListContainer = ({ repositories, order, setOrder }) => {
-  const repositoryNodes = repositories
-    ? repositories.edges.map((edge) => edge.node)
-    : [];
+class RepositoryListContainer extends React.Component {
+  renderHeader = () => {
+    const props = this.props;
 
-  const navigate = useNavigate();
+    return <RepositoryListHeader {...props} />;
+  };
 
-  return (
-    <FlatList
-      data={repositoryNodes}
-      ListHeaderComponent={<OrderPicker order={order} setOrder={setOrder} />}
-      ItemSeparatorComponent={ItemSeparator}
-      renderItem={({ item }) => (
-        <Pressable onPress={() => navigate(`/repository/${item.id}`)}>
+  render() {
+    return (
+      <FlatList
+        data={
+          this.props.repositories
+            ? this.props.repositories.edges.map((edge) => edge.node)
+            : []
+        }
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({ item }) => (
           <RepositoryItemContainer key={item.id} repository={item} />
-        </Pressable>
-      )}
-    />
-  );
-};
+        )}
+        ListHeaderComponent={this.renderHeader}
+      />
+    );
+  }
+}
 
 export default RepositoryListContainer;
