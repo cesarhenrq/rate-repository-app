@@ -1,4 +1,6 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Pressable } from "react-native";
+
+import { useNavigate } from "react-router-native";
 
 import * as Linking from "expo-linking";
 
@@ -16,6 +18,8 @@ const styles = StyleSheet.create({
 });
 
 const RepositoryItemContainer = ({ repository }) => {
+  const navigate = useNavigate();
+
   const {
     fullName,
     description,
@@ -42,17 +46,19 @@ const RepositoryItemContainer = ({ repository }) => {
   };
 
   return (
-    <View testID='repositoryItem' style={styles.container}>
-      <RepositoryItemHeader {...repositoryItemHeaderProps} />
-      <RepositoryItemRating {...repositoryItemRatingProps} />
-      {repository.url && (
-        <Button
-          onPress={() => Linking.openURL(repository.url)}
-          text='Open in Github'
-          marginTop={10}
-        />
-      )}
-    </View>
+    <Pressable onPress={() => navigate(`/repository/${repository.id}`)}>
+      <View testID='repositoryItem' style={styles.container}>
+        <RepositoryItemHeader {...repositoryItemHeaderProps} />
+        <RepositoryItemRating {...repositoryItemRatingProps} />
+        {repository.url && (
+          <Button
+            onPress={() => Linking.openURL(repository.url)}
+            text='Open in Github'
+            marginTop={10}
+          />
+        )}
+      </View>
+    </Pressable>
   );
 };
 
