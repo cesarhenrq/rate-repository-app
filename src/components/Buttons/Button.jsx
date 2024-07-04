@@ -17,8 +17,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const Button = ({ onPress, text, marginTop }) => {
-  const buttonStyles = [styles.button, marginTop && { marginTop }];
+const Button = ({ onPress, text, marginTop, style }) => {
+  const buttonStyles = [styles.button, marginTop && { marginTop }, style];
 
   return (
     <Pressable onPress={onPress} style={buttonStyles}>
