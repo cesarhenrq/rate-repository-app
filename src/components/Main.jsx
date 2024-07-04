@@ -11,6 +11,7 @@ import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import SignOut from "./SignOut";
 import CreateReview from "./CreateReview";
+import ReviewList from "./ReviewList";
 
 import theme from "../theme";
 
@@ -34,6 +35,7 @@ const Main = () => {
         <Route path='/repository/:id' element={<RepositoryItem />} />
         <Route path='/create-review' element={<CreateReview />} />
         <Route path='/signup' element={<SignUp />} />
+        <Route path='/reviews' element={<ReviewList />} />
         <Route path='*' element={<Navigate to='/' replace />} />
       </Routes>
     </View>
