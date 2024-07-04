@@ -9,10 +9,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const ReviewListContainer = ({ reviews, ListHeaderComponent = null }) => (
+const ReviewListContainer = ({
+  reviews,
+  ListHeaderComponent = null,
+  onDelete = undefined,
+}) => (
   <FlatList
     data={reviews}
-    renderItem={({ item }) => <ReviewItem review={item.node} />}
+    renderItem={({ item }) => (
+      <ReviewItem review={item.node} onDelete={onDelete} />
+    )}
     keyExtractor={({ node }) => node.id}
     ListHeaderComponent={ListHeaderComponent}
     ItemSeparatorComponent={ItemSeparator}
