@@ -14,10 +14,18 @@ const RepositoryList = () => {
   const [search, setSearch] = useState("");
   const [searchKeyword] = useDebounce(search, 1000);
 
-  const { repositories, loading, error } = useRepositories(
-    order,
-    searchKeyword
-  );
+  const [orderBy, orderDirection] = order.split(", ");
+
+  const { repositories, loading, error, fetchMore } = useRepositories({
+    orderBy,
+    orderDirection,
+    searchKeyword,
+    first: 8,
+  });
+
+  const handleOnEndReach = () => {
+    fetchMore();
+  };
 
   if (loading) {
     return <Loading />;
@@ -34,6 +42,7 @@ const RepositoryList = () => {
       setOrder={setOrder}
       search={search}
       setSearch={setSearch}
+      onEndReach={handleOnEndReach}
     />
   );
 };
