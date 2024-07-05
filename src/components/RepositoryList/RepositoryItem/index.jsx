@@ -11,7 +11,14 @@ import useRepository from "../../../hooks/useRepository";
 const RepositoryItem = () => {
   const { id } = useParams();
 
-  const { repository, loading, error } = useRepository({ id });
+  const { repository, loading, error, fetchMore } = useRepository({
+    id,
+    first: 8,
+  });
+
+  const handleEndReach = () => {
+    fetchMore();
+  };
 
   if (loading || !repository) {
     return <Loading />;
@@ -27,6 +34,7 @@ const RepositoryItem = () => {
       ListHeaderComponent={() => (
         <RepositoryItemContainer repository={repository} />
       )}
+      onEndReach={handleEndReach}
     />
   );
 };
