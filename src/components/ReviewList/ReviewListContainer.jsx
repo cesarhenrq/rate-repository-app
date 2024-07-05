@@ -13,6 +13,7 @@ const ReviewListContainer = ({
   reviews,
   ListHeaderComponent = null,
   onDelete = undefined,
+  onEndReach = undefined,
 }) => (
   <FlatList
     data={reviews}
@@ -23,6 +24,7 @@ const ReviewListContainer = ({
     ListHeaderComponent={ListHeaderComponent}
     ItemSeparatorComponent={ItemSeparator}
     ListHeaderComponentStyle={styles.listHeader}
+    onEndReached={onEndReach}
   />
 );
 
