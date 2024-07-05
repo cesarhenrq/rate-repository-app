@@ -26,6 +26,8 @@ class RepositoryListContainer extends React.Component {
           <RepositoryItemContainer key={item.id} repository={item} />
         )}
         ListHeaderComponent={this.renderHeader}
+        onEndReached={this.props.onEndReach}
+        onEndReachedThreshold={0.5}
       />
     );
   }
