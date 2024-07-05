@@ -25,6 +25,7 @@ const ReviewListContainer = ({
     ItemSeparatorComponent={ItemSeparator}
     ListHeaderComponentStyle={styles.listHeader}
     onEndReached={onEndReach}
+    onEndReachedThreshold={0.5}
   />
 );
 
